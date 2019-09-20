@@ -4,11 +4,13 @@ import android.content.Context
 import android.os.Environment
 import com.hsnozan.basemvvm.BaseApplication
 import com.hsnozan.basemvvm.api.BaseService
+import com.hsnozan.basemvvm.ui.LoginViewModel
 import com.hsnozan.basemvvm.utils.Constants
 import okhttp3.Cache
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -52,22 +54,8 @@ val networkModule = module {
     single { baseService }
 }
 
-
-val databaseModule = module {
-    /*single{
-        Room.databaseBuilder(get(), AppDatabase::class.java, "users-db")
-            .build()
-    }*/
-}
-
-val applicationModule = module {
-    /*single { StoreManager(context = foodApplication.applicationContext) }
-    single { RepoFactory(api = foodHubService ,db = get() , application = foodApplication) }
-    single { rxBus }*/
-}
-
-val viewModelModule = module {/*
-    viewModel { LoginViewModel(foodApplication = foodApplication,foodHubService = foodHubService) }
-    viewModel { UserDetailViewModel(get() , foodHubService = foodHubService) }
+val viewModelModule = module {
+    viewModel { LoginViewModel(baseApplication = baseApplication, baseService = baseService) }
+    /*viewModel { UserDetailViewModel(get() , foodHubService = foodHubService) }
     viewModel { UserListViewModel(get() , foodhubservice = foodHubService) }*/
 }
