@@ -56,6 +56,4 @@ val networkModule = module {
 
 val viewModelModule = module {
     viewModel { LoginViewModel(baseApplication = baseApplication, baseService = baseService) }
-    /*viewModel { UserDetailViewModel(get() , foodHubService = foodHubService) }
-    viewModel { UserListViewModel(get() , foodhubservice = foodHubService) }*/
 }

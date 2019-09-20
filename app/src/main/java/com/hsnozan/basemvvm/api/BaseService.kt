@@ -1,16 +1,13 @@
 package com.hsnozan.basemvvm.api
 
-/**
- * For Example Service GitHub
- *
- * {https://api.github.com}  --- > LOGIN
- * {https://api.github.com/users}  --- > USERLIST
- * {https://api.github.com/users/JakeWharton} --- > USERDETAIL
- *
- * */
+import com.hsnozan.basemvvm.model.LoginResponseModel
+import io.reactivex.Observable
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface BaseService {
 
-    //TODO GET,POST,PUT methods here
+    @GET("/3/movie/550")
+    fun sendLogin(@Query("api_key") authHeader: String): Observable<LoginResponseModel>
 
 }

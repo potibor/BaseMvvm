@@ -1,19 +1,21 @@
 package com.hsnozan.basemvvm.ui
 
+import android.content.DialogInterface
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.hsnozan.basemvvm.R
 import com.hsnozan.basemvvm.core.BaseFragment
 import com.hsnozan.basemvvm.databinding.LoginFragmentBinding
+import com.hsnozan.basemvvm.model.State
+import com.hsnozan.basemvvm.utils.hideKeyboardFrom
+import com.hsnozan.basemvvm.utils.toast
+import com.hsnozan.basemvvm.utils.tryCatch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment<LoginViewModel, LoginFragmentBinding>() {
 
-    private val loginViewModel : LoginViewModel by viewModel()
+    private val loginViewModel: LoginViewModel by viewModel()
 
     companion object {
         fun newInstance() = LoginFragment()
@@ -21,12 +23,34 @@ class LoginFragment : BaseFragment<LoginViewModel, LoginFragmentBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
-        initial()
+        initialize()
+        observeLoginState()
     }
 
-    private fun initial() {
+    private fun initialize() {
         binding.viewmodel = viewModel
+    }
+
+    private fun observeLoginState() {
+        viewModel.loadingState.observe(this@LoginFragment, Observer {
+            viewModel.progressVisibility.set(false)
+            when (it.state) {
+
+                State.ERROR -> {
+                    showAlertDialog(activity!!, "Title",
+                        "OK", DialogInterface.OnClickListener { dialogInterface, i ->
+                            dialogInterface.dismiss()
+                        }, it.errorMessage!!, true
+                    )
+                }
+                State.SUCCESS -> {
+                    activity?.hideKeyboardFrom()
+                    activity?.toast("helllo")
+                    tryCatch(tryBlock = {
+                    })
+                }
+            }
+        })
     }
 
     override fun getLayoutID(): Int {
