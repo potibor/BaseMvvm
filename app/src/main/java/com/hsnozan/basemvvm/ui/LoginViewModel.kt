@@ -1,13 +1,12 @@
 package com.hsnozan.basemvvm.ui
 
-import android.util.Base64
 import androidx.annotation.VisibleForTesting
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.hsnozan.basemvvm.BaseApplication
 import com.hsnozan.basemvvm.R
 import com.hsnozan.basemvvm.api.BaseService
-import com.hsnozan.basemvvm.core.BaseViewModel
+import com.hsnozan.basemvvm.core.SharedViewModel
 import com.hsnozan.basemvvm.model.LoadingState
 import com.hsnozan.basemvvm.model.State
 import com.hsnozan.basemvvm.utils.tryCatch
@@ -17,7 +16,7 @@ import io.reactivex.disposables.Disposable
 class LoginViewModel(
     var baseApplication: BaseApplication,
     var baseService: BaseService
-) : BaseViewModel(baseApplication) {
+) : SharedViewModel(baseApplication) {
 
     var progressVisibility = ObservableField(false)
     var loadingState: MutableLiveData<LoadingState> = MutableLiveData()

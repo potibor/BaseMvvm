@@ -3,7 +3,6 @@ package com.hsnozan.basemvvm.ui
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.hsnozan.basemvvm.R
 import com.hsnozan.basemvvm.core.BaseFragment
 import com.hsnozan.basemvvm.databinding.LoginFragmentBinding
@@ -37,7 +36,8 @@ class LoginFragment : BaseFragment<LoginViewModel, LoginFragmentBinding>() {
             when (it.state) {
 
                 State.ERROR -> {
-                    showAlertDialog(activity!!, "Title",
+                    showAlertDialog(
+                        activity!!, "Title",
                         "OK", DialogInterface.OnClickListener { dialogInterface, i ->
                             dialogInterface.dismiss()
                         }, it.errorMessage!!, true
@@ -47,6 +47,8 @@ class LoginFragment : BaseFragment<LoginViewModel, LoginFragmentBinding>() {
                     activity?.hideKeyboardFrom()
                     activity?.toast("helllo")
                     tryCatch(tryBlock = {
+                        loginViewModel.select("Itemmm")
+                        //findNavController().navigate()
                     })
                 }
             }
