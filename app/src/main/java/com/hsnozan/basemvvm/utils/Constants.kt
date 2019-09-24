@@ -1,7 +1,7 @@
 package com.hsnozan.basemvvm.utils
 
 object Constants{
-    const val BASE_URL = "https://api.github.com"
+    const val BASE_URL = "https://api.themoviedb.org"
     const val PAGE_SIZE = 25
 
     // ENDPOINT
